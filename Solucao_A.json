@@ -1,0 +1,296 @@
+[
+    {
+        "id": "03eb9ba173ddb648",
+        "type": "ui_form",
+        "z": "0439a54a7e933118",
+        "name": "",
+        "label": "Calculadora",
+        "group": "32ce0842cb540b22",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "m1",
+                "value": "m1",
+                "type": "number",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "m2",
+                "value": "m2",
+                "type": "number",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "op",
+                "value": "op",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "m1": "",
+            "m2": "",
+            "op": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "topic2",
+        "topicType": "msg",
+        "splitLayout": "",
+        "className": "",
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "c6cfb161164696d4"
+            ]
+        ]
+    },
+    {
+        "id": "3bbab2360deac1bd",
+        "type": "switch",
+        "z": "0439a54a7e933118",
+        "name": "",
+        "property": "payload.calc.op",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "*",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "/",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "-",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "+",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": true,
+        "outputs": 4,
+        "x": 210,
+        "y": 420,
+        "wires": [
+            [
+                "d7b59127a476cbf7"
+            ],
+            [
+                "33c068b086c1c176"
+            ],
+            [
+                "a5d89cafef6956da"
+            ],
+            [
+                "6f70cf902300dc2a"
+            ]
+        ]
+    },
+    {
+        "id": "33c068b086c1c176",
+        "type": "calculator",
+        "z": "0439a54a7e933118",
+        "name": "",
+        "inputMsgField": "payload",
+        "outputMsgField": "result",
+        "operation": "div",
+        "constant": "",
+        "round": false,
+        "decimals": 0,
+        "x": 430,
+        "y": 440,
+        "wires": [
+            [
+                "472875371941634e"
+            ]
+        ]
+    },
+    {
+        "id": "a5d89cafef6956da",
+        "type": "calculator",
+        "z": "0439a54a7e933118",
+        "name": "",
+        "inputMsgField": "payload",
+        "outputMsgField": "result",
+        "operation": "sub",
+        "constant": "",
+        "round": false,
+        "decimals": 0,
+        "x": 440,
+        "y": 480,
+        "wires": [
+            [
+                "472875371941634e"
+            ]
+        ]
+    },
+    {
+        "id": "6f70cf902300dc2a",
+        "type": "calculator",
+        "z": "0439a54a7e933118",
+        "name": "",
+        "inputMsgField": "payload",
+        "outputMsgField": "result",
+        "operation": "sum",
+        "constant": "",
+        "round": false,
+        "decimals": 0,
+        "x": 430,
+        "y": 520,
+        "wires": [
+            [
+                "472875371941634e"
+            ]
+        ]
+    },
+    {
+        "id": "d7b59127a476cbf7",
+        "type": "calculator",
+        "z": "0439a54a7e933118",
+        "name": "",
+        "inputMsgField": "payload",
+        "outputMsgField": "result",
+        "operation": "mult",
+        "constant": "",
+        "round": false,
+        "decimals": 0,
+        "x": 440,
+        "y": 400,
+        "wires": [
+            [
+                "472875371941634e"
+            ]
+        ]
+    },
+    {
+        "id": "472875371941634e",
+        "type": "ui_text",
+        "z": "0439a54a7e933118",
+        "group": "32ce0842cb540b22",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Result:",
+        "format": "{{msg.result}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 610,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "36c4b21e4d9d8049",
+        "type": "join",
+        "z": "0439a54a7e933118",
+        "name": "",
+        "mode": "custom",
+        "build": "array",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "num",
+        "reduceFixup": "",
+        "x": 650,
+        "y": 280,
+        "wires": [
+            [
+                "3bbab2360deac1bd"
+            ]
+        ]
+    },
+    {
+        "id": "6c1e18320a0102f0",
+        "type": "split",
+        "z": "0439a54a7e933118",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": "2",
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 470,
+        "y": 280,
+        "wires": [
+            [
+                "36c4b21e4d9d8049"
+            ]
+        ]
+    },
+    {
+        "id": "c6cfb161164696d4",
+        "type": "change",
+        "z": "0439a54a7e933118",
+        "name": "store op",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.op",
+                "pt": "msg",
+                "to": "payload.calc.op",
+                "tot": "flow"
+            },
+            {
+                "t": "delete",
+                "p": "payload.op",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 280,
+        "wires": [
+            [
+                "6c1e18320a0102f0"
+            ]
+        ]
+    },
+    {
+        "id": "32ce0842cb540b22",
+        "type": "ui_group",
+        "name": "Calculadora",
+        "tab": "8b58410823d445a1",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "8b58410823d445a1",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    }
+]
